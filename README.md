@@ -1,0 +1,11 @@
+- `holiday/list` (`GET`) - возвращает все праздники в `{ id: number, name: string, date: Date }` формате.
+- `holiday/add` (`POST`) - добавляет праздник в `{ name: string, date: Date }` формате.
+- `holiday/delete/:id` (`DELETE`) - удаляет праздник по `id`;
+- `working-weekend/list` (`GET`) - возвращает список из `{ id: number, date: Date }` оъектов.
+- `working-weekend/add` (`POST`) - добавляет рабочий выходной в `{ date: Date }` формате.
+- `working-weekend/delete/:id` - (`DELETE`) - удаляет рабочий выходной по `id`.
+- `day/check/:date` (`GET`) - возвращает тип дня в `{ dayType: "dayOff" | "workingDay" }` формате по дате `date`.
+- `working-hour/get` (`GET`) - возвращает объект в `{ id: number, month: number, workingHours: number }` формате в указанный месяц или интервал месяцев в параметрах запроса. Параметр `month={месяц}` возвращает рабочие часы данного месяц. Мараметры `from={месяц}` и `to={месяц}` возвращают рабочие часы для интервала месяцев. Месяц может быть числом, именем месяца, или сокращением от имени в 3 буквы. Если опущен параметр `from`, возвращаются все месяц до параметра `to` и наоборот. Если опущены все параметры, будут возвращены все месяцы.
+
+- Результат выполнения находится в `frontend/data/result.yaml` файле.
+- Дамп БД находиться в `backend/scr/init-db.sql` файле.

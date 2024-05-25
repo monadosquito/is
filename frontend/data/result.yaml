@@ -1,0 +1,54 @@
+workingHoursApr2023: []
+workingHoursMay2023:
+  - id: 36
+    month: 4
+    working_hours: 168
+workingHoursAprMay2023: []
+workingHoursApr2024:
+  - id: 163
+    month: 3
+    working_hours: 143
+workingHoursMay2024:
+  - id: 164
+    month: 4
+    working_hours: 167
+workingHoursAprMay2024:
+  - id: 163
+    month: 3
+    working_hours: 143
+  - id: 164
+    month: 4
+    working_hours: 167
+  - id: 165
+    month: 5
+    working_hours: 151
+  - id: 166
+    month: 10
+    working_hours: 151
+  - id: 167
+    month: 11
+    working_hours: 151
+workingHoursApr2024_2:
+  - id: 187
+    month: 3
+    working_hours: 142
+workingHoursMay2024_2:
+  - id: 188
+    month: 4
+    working_hours: 166
+workingHoursAprMay2024_2:
+  - id: 187
+    month: 3
+    working_hours: 142
+  - id: 188
+    month: 4
+    working_hours: 166
+  - id: 189
+    month: 5
+    working_hours: 150
+  - id: 190
+    month: 10
+    working_hours: 150
+  - id: 191
+    month: 11
+    working_hours: 142
