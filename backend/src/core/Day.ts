@@ -177,13 +177,30 @@ const groupBy = <A>(f: (x: A, y: A) => boolean) => (xs: A[]) => xs.reduce(
             : [ ...grouped, [] ]
     }, [[]])
 
+const monthsSequence = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ] as const
+const monthLengths = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ] as const
+
+const fillHolidaylessMonths = (
+    monthedWorkingHours: Monthed<WorkingHours>
+): Monthed<WorkingHours> => {
+    return monthsSequence.map(m => {
+        const monthLength = monthLengths[m]
+        const weekdays = Math.round(
+            monthLength - monthLength / WEEK_DAYS * WEEKEND_DAYS
+        )
+        const holidaylessWorkingHours = weekdays * WEEKDAY_WORKING_HOURS
+        const hasHolidays = !!monthedWorkingHours[m]
+        return hasHolidays ? monthedWorkingHours[m] : holidaylessWorkingHours
+    })
+}
+
 const monthWorkingHours = (
     holidays: Holiday[]
 ) => (workingWeekends: Weekend[]): Monthed<WorkingHours> => {
     const monthedHolidays = monthDays(holidays)
     const monthedWorkingWeekends = monthDays(workingWeekends)
     const emptyMonthedWorkingHours: Monthed<WorkingHours> = {}
-    return Object.entries(monthedHolidays).reduce(
+    return fillHolidaylessMonths(Object.entries(monthedHolidays).reduce(
         (monthedWorkingHours, [ m, hs ]) => {
             const month = +m
             const monthLength = countMonthLength(hs[0].date)
@@ -207,12 +224,12 @@ const monthWorkingHours = (
             return { ...monthedWorkingHours, [month]: workingHours }
         },
         emptyMonthedWorkingHours,
-    )
+    ))
 }
 
 const parseMonthBoundary = (b: string): MonthNumber =>
     b && parseInt(b)
-        ? parseInt(b) - 1 as MonthNumber
+        ? parseInt(b) as MonthNumber
         : monthToNumber(b.toLowerCase() as Month || b as ShortMonth)
 
 const parseMonthInterval = (
@@ -223,7 +240,7 @@ const parseMonthInterval = (
     to: undefined | string
 ): MonthInterval => {
     const month = m && parseInt(m)
-                ? numberToMonth(parseInt(m) - 1 as MonthNumber)
+                ? numberToMonth(parseInt(m) as MonthNumber)
                 : m
     return {
         from: parseMonthBoundary(from || month || 'january'),

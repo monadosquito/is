@@ -18,7 +18,9 @@ const getMonths = async (from: Month, to: Month) =>
     await fetch(`http://${HOST}:${PORT}/working-hour/get/?from=${from}&to=${to}`)
         .then(res => res.json())
 
-const clean = async () => await fetch(`http://${HOST}:${PORT}/clean`)
+const clean = async () => await fetch(`http://localhost:8000/clean`, {
+    method: 'DELETE',
+})
 
 
 const addHoliday = async (h: any) => {
@@ -49,16 +51,16 @@ fs.readFile(path.join(root + '/data/holidays-2023.json'), 'utf8')
                     const workingHoursMay2023 = await getMonth('may')
                     const workingHoursAprMay2023 = await getMonths('apr', 'may')
                     await clean()
-                    for await (const h of res2024.holidays) {
+                    for (const h of res2024.holidays) {
                         await addHoliday(h)
                     }
                     const workingHoursApr2024_1 = await getMonth(4)
                     const workingHoursMay2024_1 = await getMonth(5)
                     const workingHoursAprMay2024_1 = await getMonths(4, 5)
 
-                    await addHoliday({ name: 'Холидэй', date: '2024-05-06' })
-                    await addHoliday({ name: 'Холидэй', date: '2024-05-07' })
-                    await addHoliday({ name: 'Холидэй', date: '2024-05-08' })
+                    await addHoliday({ name: 'Холидэй 1', date: '2024-05-06' })
+                    await addHoliday({ name: 'Холидэй 2', date: '2024-05-07' })
+                    await addHoliday({ name: 'Холидэй 3', date: '2024-05-08' })
 
                     const workingHoursApr2024_2 = await getMonth(4)
                     const workingHoursMay2024_2 = await getMonth(5)
